@@ -18,7 +18,7 @@ public class PasswordConverterListener extends AbstractMongoEventListener<User> 
     @Override
     public void onBeforeSave(BeforeSaveEvent<User> event) {
         User user = event.getSource();
-        if (isANewUser(user)) {
+        if (isNewUser(user)) {
             log.debug("Hashing password of the user {}.", user.getEmail());
             String hashedPassword = passwordConverter.hashPassword(user.getPassword());
             user.setPassword(hashedPassword);
@@ -26,7 +26,7 @@ public class PasswordConverterListener extends AbstractMongoEventListener<User> 
         super.onBeforeSave(event);
     }
 
-    private boolean isANewUser(User user) {
+    private boolean isNewUser(User user) {
         return user.getId() == null;
     }
 }
