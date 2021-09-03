@@ -13,11 +13,11 @@ java {
 repositories {
     mavenCentral()
 }
-
-dependencies {
-    testImplementation(libs.testing.junit.api)
-    testRuntimeOnly(libs.testing.junit.engine)
-}
+//
+//dependencies {
+//    testImplementation(libs.testing.junit.api)
+//    testRuntimeOnly(libs.testing.junit.engine)
+//}
 tasks.test {
     useJUnit()
 }
@@ -25,7 +25,6 @@ tasks.test {
 subprojects {
     apply(plugin = "java")
     apply(plugin = "checkstyle")
-//    apply(plugin = "org.sonarqube")
     repositories {
         mavenCentral()
     }
@@ -36,8 +35,8 @@ subprojects {
     }
 
     dependencies {
-        lombok("org.projectlombok:lombok:1.18.20")
-
+        lombok()
+        basicTesting()
     }
 
     tasks.test {
@@ -55,9 +54,13 @@ subprojects {
 }
 
 
-fun org.gradle.api.artifacts.dsl.DependencyHandler.lombok(name: String) {
-    compileOnly(name)
-    annotationProcessor(name)
-    testCompileOnly(name)
-    testAnnotationProcessor(name)
+fun org.gradle.api.artifacts.dsl.DependencyHandler.lombok() {
+    compileOnly(libs.utils.lombok)
+    annotationProcessor(libs.utils.lombok)
+    testCompileOnly(libs.utils.lombok)
+    testAnnotationProcessor(libs.utils.lombok)
+}
+fun org.gradle.api.artifacts.dsl.DependencyHandler.basicTesting() {
+    testImplementation(libs.testing.junit.api)
+    testRuntimeOnly(libs.testing.junit.engine)
 }
