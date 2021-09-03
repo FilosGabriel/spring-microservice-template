@@ -15,6 +15,6 @@ public interface BasicUserRepository extends MongoRepository<User, String> {
 
     boolean existsByEmail(String email);
 
-    @ExistsQuery("{'email':?0,'password':?1}")
+    @ExistsQuery(value = "{email:?0,password:?1}")
     boolean existsByEmailAndPassword(String email, String password);
 }

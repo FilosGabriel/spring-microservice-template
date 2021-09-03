@@ -7,3 +7,7 @@ include("communication")
 include("shared")
 include("bussiness")
 include("convensions-plugins")
+include("persistence:migrations")
+findProject(":persistence:migrations")?.name = "migrations"
+include("persistence:migrations:mongo")
+findProject(":persistence:migrations:mongo")?.name = "mongo"

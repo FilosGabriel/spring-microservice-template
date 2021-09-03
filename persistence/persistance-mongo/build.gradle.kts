@@ -12,14 +12,18 @@ extra["testcontainersVersion"] = "1.15.3"
 
 
 dependencies {
+    implementation("io.vavr:vavr:0.9.0")
     implementation(libs.spring.data.mongo)
     testImplementation(libs.spring.test)
+    testImplementation(libs.spring.test)
     testImplementation(libs.testing.testcontainers.junit)
-    testImplementation(libs.testing.testcontainers.mongo)
 }
 
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
     }
+}
+tasks.test {
+    useJUnitPlatform()
 }
