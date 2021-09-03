@@ -1,0 +1,19 @@
+[versions]
+junit="5.7.2"
+lombok="1.18.20"
+
+[libraries]
+#testing
+testing-junit-api={ module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+testing-junit-engine={ module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+testing-testcontainers-junit={ module = "org.testcontainers:junit-jupiter" }
+testing-testcontainers-mongo={ module = "org.testcontainers:mongodb" }
+
+#util
+utils-lombok={ module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+
+#spring-boot
+spring-data-mongo={ module = "org.springframework.boot:spring-boot-starter-data-mongodb" }
+spring-test={ module = "org.springframework.boot:spring-boot-starter-test" }
+
