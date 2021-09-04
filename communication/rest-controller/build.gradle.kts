@@ -6,6 +6,5 @@ plugins {
 dependencies {
     implementation(projects.shared.web.dto)
     implementation(projects.bussiness)
-    implementation(project(":persistence:persistance-mongo"))
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation(libs.spring.starter.web)
 }

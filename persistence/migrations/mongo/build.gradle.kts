@@ -10,11 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("com.github.cloudyrock.mongock:mongock-bom:4.3.8"))
-    implementation("com.github.cloudyrock.mongock:mongock-bom:4.3.8")
-    implementation("com.github.cloudyrock.mongock:mongock-standalone:4.3.8")
-    implementation("com.github.cloudyrock.mongock:mongodb-sync-v4-driver:4.3.8")
-    implementation("org.mongodb:mongodb-driver-sync:4.3.1")
+    implementation(platform(libs.mongock.bom))
+    implementation(libs.bundles.mongock)
 
 }
 

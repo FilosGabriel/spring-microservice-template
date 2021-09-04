@@ -1,6 +1,9 @@
 [versions]
 junit="5.7.2"
 lombok="1.18.20"
+vavr="0.9.0"
+mongock="4.3.8"
+mongockd="4.3.1"
 
 [libraries]
 #testing
@@ -11,9 +14,23 @@ testing-testcontainers-mongo={ module = "org.testcontainers:mongodb" }
 
 #util
 utils-lombok={ module = "org.projectlombok:lombok", version.ref = "lombok" }
+utils-vavr={ module = "io.vavr:vavr", version.ref = "vavr" }
 
 
 #spring-boot
 spring-data-mongo={ module = "org.springframework.boot:spring-boot-starter-data-mongodb" }
 spring-test={ module = "org.springframework.boot:spring-boot-starter-test" }
+spring-starter-base={ module = "org.springframework.boot:spring-boot-starter" }
+spring-starter-web={ module = "org.springframework.boot:spring-boot-starter-web" }
+
+
+#mongock
+mongock-bom={module = "com.github.cloudyrock.mongock:mongock-bom", version.ref = "mongock"}
+mongock-standalone={module = "com.github.cloudyrock.mongock:mongock-standalone", version.ref = "mongock"}
+mongock-driver={module = "com.github.cloudyrock.mongock:mongodb-sync-v4-driver", version.ref = "mongock"}
+mongock-mongo={module = "org.mongodb:mongodb-driver-sync", version.ref = "mongockd"}
+
+[bundles]
+mongock=["mongock-bom","mongock-standalone","mongock-driver","mongock-mongo"]
+
 

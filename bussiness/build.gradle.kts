@@ -4,5 +4,5 @@ plugins {
 }
 dependencies{
     implementation(projects.shared.web.dto)
-    implementation("org.springframework.boot:spring-boot-starter")
+    implementation(libs.spring.starter.base)
 }
