@@ -19,3 +19,5 @@ include("shared:web:dto")
 findProject(":shared:web:dto")?.name = "dto"
 include("communication:rest-controller")
 findProject(":communication:rest-controller")?.name = "rest-controller"
+include("shared:web:exceptions")
+findProject(":shared:web:exceptions")?.name = "exceptions"

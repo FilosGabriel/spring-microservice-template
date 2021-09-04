@@ -17,6 +17,8 @@ dependencies {
     testImplementation(libs.spring.test)
     testImplementation(libs.spring.test)
     testImplementation(libs.testing.testcontainers.junit)
+    testImplementation(libs.testing.testcontainers.mongo)
+    testImplementation(projects.persistence.migrations.mongo)
 }
 
 dependencyManagement {

@@ -9,8 +9,8 @@ public class MongoMigrationRunner {
     public void init(String connection) {
         MongoClient mongoClient = MongoClients.create(connection);
         MongockStandalone.builder()
-                         .setDriver(MongoSync4Driver.withDefaultLock(mongoClient, "db"))
-                         .addChangeLogsScanPackage("com.filos.migrations.mongo.change.log")
-                         .buildRunner();
+                         .setDriver(MongoSync4Driver.withDefaultLock(mongoClient, "test"))
+                         .addChangeLogsScanPackage("org.filos.migrations.mongo.changelog")
+                         .buildRunner().execute();
     }
 }
