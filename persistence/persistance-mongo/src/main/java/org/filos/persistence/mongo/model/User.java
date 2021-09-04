@@ -9,12 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Document
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
     @Id
     private String id;
@@ -30,4 +31,11 @@ public class User {
 
     private UserAudit audit;
 
+    public User(String firstName, String lastName, String email, String password, UserAudit audit) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.audit = audit;
+    }
 }
