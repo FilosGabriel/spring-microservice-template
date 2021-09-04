@@ -1,9 +1,7 @@
 plugins {
-    java
+    id("java")
 }
 
-group = "org.filos"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -12,9 +10,6 @@ repositories {
 dependencies {
     implementation(platform(libs.mongock.bom))
     implementation(libs.bundles.mongock)
-
+    implementation("com.github.javafaker:javafaker:0.12")
 }
 
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
-}

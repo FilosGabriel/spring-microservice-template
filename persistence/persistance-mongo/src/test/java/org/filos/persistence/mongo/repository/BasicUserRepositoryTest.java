@@ -3,12 +3,12 @@ package org.filos.persistence.mongo.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.filos.migrations.mongo.MongoMigrationRunner;
 import org.filos.persistence.mongo.config.BeanConfig;
 import org.filos.persistence.mongo.model.User;
 import org.filos.persistence.mongo.model.UserAudit;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
@@ -27,48 +27,42 @@ public class BasicUserRepositoryTest {
 
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.4.2");
+    static MongoMigrationRunner runner = new MongoMigrationRunner();
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
     }
 
+    @BeforeAll
+    static void setup() {
+        runner.init(mongoDBContainer.getReplicaSetUrl());
+    }
+
     @Autowired
     private BasicUserRepository repository;
 
-    @BeforeEach
-    void setup() {
-        repository.save(new User( "firstName1", "lastName1", "testemail1@test.com", "password", new UserAudit()));
-        repository.save(new User( "firstName2", "lastName2", "testemail2@test.com", "password", new UserAudit()));
-        repository.save(new User( "firstName3", "lastName3", "testemail3@test.com", "password", new UserAudit()));
-    }
 
-    @AfterEach
-    void cleanUp() {
-        repository.deleteAll();
-    }
 
     @Test
     void testThatExists3Users() {
         List<User> users = repository.findAll();
-        Assertions.assertEquals(users.size(), 3);
+        Assertions.assertEquals(users.size(), 100);
     }
 
     @Test
     void checkThatThePasswordIsHashed() {
-        repository.save(new User( "firstName4", "lastName4", "testemail4@test.com", "password", new UserAudit()));
+        repository.save(new User("firstName4", "lastName4", "testemail4@test.com", "password", new UserAudit()));
         User user = repository.findByEmail("testemail4@test.com")
                               .get();
         Assertions.assertNotEquals(user.getPassword(), "password");
     }
 
     @Test
-    void testThatFingByEmailFindTheCorrectUser() {
-        repository.findAll()
-                  .forEach(e -> System.out.println(e.getEmail() + "----" + e.getPassword()));
-        Optional<User> users = repository.findByEmail("testemail1@test.com");
+    void testThatFindByEmailFindTheCorrectUser() {
+        Optional<User> users = repository.findByEmail("kian.waters@hotmail.com");
         Assertions.assertEquals(users.get()
-                                     .getEmail(), "testemail1@test.com");
+                                     .getEmail(), "kian.waters@hotmail.com");
     }
 
     @Test
@@ -79,13 +73,13 @@ public class BasicUserRepositoryTest {
 
     @Test
     void testThatExistByEmailAndPasswordItCheckThatExists() {
-        boolean users = repository.existsByEmailAndPassword("testemail1@test.com", "password");
+        boolean users = repository.existsByEmailAndPassword("kian.waters@hotmail.com", "password--encoded");
         Assertions.assertTrue(users);
     }
 
     @Test
     void testThatExistByEmailItCheckThatExists() {
-        boolean users = repository.existsByEmail("testemail1@gmail.com");
-        Assertions.assertFalse(users);
+        boolean users = repository.existsByEmail("kian.waters@hotmail.com");
+        Assertions.assertTrue(users);
     }
 }

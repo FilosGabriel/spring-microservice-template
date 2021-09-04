@@ -4,5 +4,6 @@ plugins {
 }
 dependencies{
     implementation(projects.shared.web.dto)
+    implementation(projects.shared.web.exceptions)
     implementation(libs.spring.starter.base)
 }
