@@ -12,7 +12,7 @@ extra["testcontainersVersion"] = "1.15.3"
 
 
 dependencies {
-    implementation("io.vavr:vavr:0.9.0")
+    implementation(libs.utils.vavr)
     implementation(libs.spring.data.mongo)
     testImplementation(libs.spring.test)
     testImplementation(libs.spring.test)
